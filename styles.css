@@ -57,17 +57,30 @@ nav div {
   align-items: center;
 }
 
+.content {
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 8rem;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
 h2 {
-  margin: 4rem 0 1rem;
+  margin: 0 0 1rem;
   font-size: 2rem;
 }
 p {
   font-style: italic;
+  text-align: center;
+  width: 100%;
 }
-
 .button {
-  position: absolute;
-  bottom: 9rem;
+  /* position: absolute; */
+  /* bottom: 9rem; */
   color: white;
   text-decoration: none;
   font-size: .9rem;
