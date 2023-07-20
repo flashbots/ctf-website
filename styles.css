@@ -61,7 +61,7 @@ nav div {
   width: 100vw;
   height: 100vh;
   margin: 0;
-  padding: 8rem;
+  padding: 8rem 0;
   position: absolute;
   display: flex;
   flex-direction: column;
