@@ -73,8 +73,6 @@ h2 {
   margin: 0 0 1rem;
   font-size: 2rem;
 }
-p {
-  font-style: italic;
 
 h2 > a {
   color: inherit;
@@ -85,8 +83,15 @@ h2 > a:hover {
   text-decoration: underline;
 }
 
+p.dates {
+  font-family: monospace;
   text-align: center;
-  width: 100%;
+  font-size: medium;
+  font-weight: lighter;
+}
+
+p.dates > span {
+  font-size:x-large;
 }
 
 .tab {
