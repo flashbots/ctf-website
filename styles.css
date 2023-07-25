@@ -78,6 +78,16 @@ p {
   text-align: center;
   width: 100%;
 }
+
+.tab {
+  color: white;
+  text-decoration: none;
+  font-size: .9rem;
+  border: solid 1px white;
+  border-radius: 2rem;
+  padding: .3rem .8rem;
+}
+
 .button {
   /* position: absolute; */
   /* bottom: 9rem; */
