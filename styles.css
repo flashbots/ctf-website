@@ -75,6 +75,16 @@ h2 {
 }
 p {
   font-style: italic;
+
+h2 > a {
+  color: inherit;
+  text-decoration: none;
+}
+
+h2 > a:hover {
+  text-decoration: underline;
+}
+
   text-align: center;
   width: 100%;
 }
