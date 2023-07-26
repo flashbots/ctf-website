@@ -61,7 +61,7 @@ nav div {
   width: 100vw;
   height: 100vh;
   margin: 0;
-  padding: 8rem 0;
+  padding-top: 8rem;
   position: absolute;
   display: flex;
   flex-direction: column;
@@ -104,14 +104,13 @@ p.dates > span {
 }
 
 .button {
-  /* position: absolute; */
-  /* bottom: 9rem; */
   color: white;
   text-decoration: none;
   font-size: .9rem;
   border: solid 1px white;
   border-radius: 2rem;
   padding: .3rem .8rem;
+  cursor: pointer;
 }
 
 .button:hover,
@@ -119,6 +118,24 @@ p.dates > span {
 .button:active {
   color: black;
   background: white;
+}
+
+div.registration {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 400px;
+}
+
+div.registration > div.form {
+  display: none;
+}
+
+div.registration > div.form > iframe{
+  width: 400px;
+  height: 320px;
+  border: none;
 }
 
 /* Tunnel animation */
@@ -169,8 +186,4 @@ p.dates > span {
   
   50% { opacity: 1; }
   100% { transform: perspective(1000px) translateZ(0px) rotate(70deg); opacity: 0; }
-}
-
-iframe {
-  position: absolute;
 }
