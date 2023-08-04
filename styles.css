@@ -41,8 +41,8 @@ body {
   flex-direction: column;
   row-gap: 2rem;
   align-items: stretch;
-  justify-content: center;
-  overflow: hidden; 
+  justify-content: space-between;
+  overflow: hidden;
   color: white;
 }
 
@@ -85,23 +85,20 @@ header > nav > div:hover {
 }
 
 footer {
-  align-self: stretch;
   height: 20px;
-  padding: 0px 10px;
   font-size: x-small;
   color: #717171;
 
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
 }
 
-.content {
-  width: 100vw;
-  height: 100vh;
+div.content {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  flex-grow: 1;
   align-items: center;
 }
 
