@@ -29,40 +29,76 @@ body {
   width: 100vw;
   height: 100vh;
   margin: 0;
-  padding: 0;
+  padding: 10px;
 
-  font-family: 'CMU-Serif', 'Times New Roman', Times, serif;
   background: #0D0D0D; 
   background-image: url("stars.png");
   background-repeat: repeat;
+
+  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  row-gap: 2rem;
+  align-items: stretch;
   justify-content: center;
   overflow: hidden; 
   color: white;
 }
 
-nav {
-  width: 100vw;
+header {
+  height: 40px;
+  border: 1px solid #6e5677;
+  padding: 0px 10px;
+  font-size: small;
+  color: #e3bff2;
+
   display: flex;
-  position: fixed;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  top: 1.5rem;
-  z-index: 40;
+  justify-content: space-between;
 }
-nav div {
-  padding: 0.75rem 1rem;
+
+header > div.logo, header > div.connected {
+  white-space: nowrap;
+}
+
+header > nav {
   display: flex;
+  flex-direction: row;
+  flex-shrink: 0;
+  column-gap: 0.1rem;
+  align-self: stretch;
+}
+
+header > nav > div {
+  display: flex;
+  align-self: stretch;
   align-items: center;
+  padding: 0rem 0.4rem;
+}
+
+header > nav > div:hover {
+  background-color: #e3bff2;
+  color: #0D0D0D;
+  cursor: pointer;
+}
+
+footer {
+  align-self: stretch;
+  height: 20px;
+  padding: 0px 10px;
+  font-size: x-small;
+  color: #717171;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 .content {
   width: 100vw;
   height: 100vh;
-  margin: 0;
-  padding-top: 8rem;
-  position: absolute;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -136,54 +172,4 @@ div.registration > div.form > iframe{
   width: 400px;
   height: 320px;
   border: none;
-}
-
-/* Tunnel animation */
-.tunnel {
-  position: relative;
-  width: 4rem;
-  height: 4rem;
-}
-.frame {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  border-width: 0.02rem;
-  border-style: solid;
-  border-color: #9955b4;
-  opacity: .8;
-  box-shadow: 
-    0px 0px 12px 1px rgba(61, 21, 164, 0.2), 
-    0px 0px 8px 1px rgba(137, 51, 244, 0.3), 
-    0px 0px 4px 0px rgba(212, 111, 237, 0.2), 
-    0px 0px 2px 0px rgba(228, 129, 237, 0.2), 
-    inset 0px 0px 12px 1px rgba(61, 21, 164, 0.25), 
-    inset 0px 0px 8px 1px rgba(137, 51, 244, 0.3), 
-    inset 0px 0px 4px 0px rgba(212, 111, 237, 0.2), 
-    inset 0px 0px 2px 0px rgba(228, 129, 237, 0.25)
-  ;
-  transform-style: preserve-3d;
-  animation-name: move;
-  animation-duration: 12s;
-  animation-timing-function: linear;
-  animation-iteration-count: infinite;
-  animation-delay: calc(1.5s * var(--i) - 12s);
-  -webkit-animation-name: move;
-  -webkit-animation-duration: 12s;
-  -webkit-animation-timing-function: linear;
-  -webkit-animation-iteration-count: infinite;
-  -webkit-animation-delay: calc(1.5s * var(--i) - 12s);
-  z-index: calc(var(--i) * -1);
-}
-@keyframes move {
-  0% { transform: perspective(1000px) translateZ(1000px) rotate(-70deg); }
-  
-  50% { opacity: 1; }
-  100% {  transform: perspective(1000px) translateZ(0px) rotate(70deg); opacity: 0; }
-}
-@-webkit-keyframes move {
-  0% { transform: perspective(1000px) translateZ(1000px) rotate(-70deg); }
-  
-  50% { opacity: 1; }
-  100% { transform: perspective(1000px) translateZ(0px) rotate(70deg); opacity: 0; }
 }
