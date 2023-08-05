@@ -258,9 +258,13 @@ div.registration>div.form>iframe {
     border: none;
 }
 
-.button>a {
-    text-decoration: none;
-    color: #e3bff2;
+.dune {
+    color: #F4603E;
+}
+
+.dune:hover {
+    background-color: #F4603E;
+    border: #fff3 solid 1px;
 }
 
 .scoot-corner {
