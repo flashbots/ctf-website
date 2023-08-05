@@ -51,6 +51,10 @@
       document.addEventListener("DOMContentLoaded", onPageLoad)
 
       /* ================= HELPERS ========================================== */
+      /** Returns the appropriate suffix for the "place" of a given number.
+       *
+       * i.e. 1 => "st", 11 => "th", 21 => "st", 101 => "st", 111 => "th", etc.
+       */
       const placeSuffix = (place) => {
         return place === 0 ? "th" :
         place === 1 ? "st" :
@@ -60,10 +64,15 @@
         (place >= 4 && place < 20) ? "th" : place > 100 ? placeSuffix(place % 100) : placeSuffix(place % 10)
       }
 
+      /** Returns the given number with appropriate suffix for its "place".
+       *
+       * i.e. 1 => "1st", 11 => "11th", 21 => "21st", 101 => "101st", 111 => "111th", etc.
+       */
       const placeWithSuffix = (place) => {
         return `${place}${placeSuffix(place)}`
       }
 
+      /** Color palette (for progress bar). */
       const colorPalette = {
         red: "#ff2d2d",
         yellow: "#ffb546",
@@ -71,16 +80,43 @@
         purple: "#b266ff"
       }
 
-      /* ================= COMPONENTS ======================================= */
-      const simWins = (numWins) => {
-        const simWin = {points: 2, captureId: 201, blockNumber: 9446648}
-        const wins = [...Array(numWins).keys()].map(idx => simWin)
-        return {
-          timeline: wins,
-          totalPoints: wins.map(w => w.points).reduce((a, b) => a + b)
-        }
+      /** Returns the challenge with the highest captureId (i.e. the hardest challenge captured). */
+      const hardestChallenge = (timeline) => {
+        return timeline.sort((a, b) => b.captureId - a.captureId)[0]
       }
 
+      /** Sort scores by total points, then by blockNumber of their hardest capture. */
+      function sortScores(scores) {
+        return Object.entries(scores)
+        .map(([address, scoreData]) => {
+          return {
+            address,
+            totalPoints: scoreData.totalPoints,
+            flagsCaptured: scoreData.timeline.length,
+            timeline: scoreData.timeline,
+          }
+        })
+        // sort by score first
+        .sort((a, b) => b.totalPoints - a.totalPoints)
+        // then sort score groups by block number of hardest challenge captured
+        .sort((a, b) => a.totalPoints == b.totalPoints ? hardestChallenge(a.timeline).blockNumber - hardestChallenge(b.timeline).blockNumber : 0)
+      }
+
+      /** Returns a human-readable date+time string for the time at which it's called. */
+      function datetime() {
+        const date = new Date()
+        const month = date.toLocaleString('default', { month: 'long' })
+        const day = date.getDate()
+        const year = date.getFullYear()
+        const hour = date.getHours()
+        const minute = date.getMinutes()
+        const second = date.getSeconds()
+        const padZero = (num) => num.toString().padStart(2, "0")
+        return `${day} ${month}, ${year} ${padZero(hour)}:${padZero(minute)}:${padZero(second)}`
+      }
+
+      /* ================= COMPONENTS ======================================= */
+      /** Returns the raw HTML of a single scoreboard table row. */
       function scoreRow(place, scoreCard) {
         const specialClass = (place === 1) ? "rainbow" : ""
         return `<tr class="leaderboard-row ${specialClass}">
@@ -91,19 +127,13 @@
         </tr>`
       }
 
+      /** Returns the raw HTML of all scoreboard table rows. Input `scores` does not need to be sorted. */
       function scoreboardRows(scores) {
-        let scoreMap = Object.entries(scores)
-        .map(([address, scoreData]) => {
-          return {
-            address,
-            totalPoints: scoreData.totalPoints,
-            flagsCaptured: scoreData.timeline.length,
-          }
-        })
-        .sort((a, b) => b.totalPoints - a.totalPoints)
-        return scoreMap.map((scoreCard, idx) => scoreRow(idx + 1, scoreCard)).reduce((prv, cur) => prv + cur)
+        let sortedScores = sortScores(scores)
+        return sortedScores.map((scoreCard, idx) => scoreRow(idx + 1, scoreCard)).reduce((prv, cur) => prv + cur)
       }
 
+      /** Returns the raw HTML which renders the number of flags captured as cute lil gems. */
       function progressBar(challengesComplete) {
         const totalProgressPercent = (challengesComplete / TOTAL_CHALLENGES) * 100
 
@@ -119,6 +149,7 @@
           return thisBandColor
         }
 
+        // each "bar" in the progress bar is just a div with some CSS; these are called nuggets
         const progressNugget = (color) => `<div class="progress-nugget" style="background-color: ${color};"></div>`
 
         // set color up to progress point, then use no color for the remaining nuggets
@@ -126,18 +157,6 @@
         return `<div class="progress-container">${nuggets}</div>`
       }
 
-      function datetime() {
-        const date = new Date()
-        const month = date.toLocaleString('default', { month: 'long' })
-        const day = date.getDate()
-        const year = date.getFullYear()
-        const hour = date.getHours()
-        const minute = date.getMinutes()
-        const second = date.getSeconds()
-        const padZero = (num) => num.toString().padStart(2, "0")
-        return `${day} ${month}, ${year} ${padZero(hour)}:${padZero(minute)}:${padZero(second)}`
-      }
-      
       /* ================= INIT ============================================= */
       function onPageLoad() {
         // get visible screen width and modify layout accordingly
@@ -154,11 +173,14 @@
         // load participants
         async function loadScores() {
           try {
+            // fetch latest scores from Flashbots CTF data repo
             const scoreboard = await fetch("https://ctf-data.flashbots.net/events.json")
             return await scoreboard.json()
           } catch (e) {
+            // show a fake scoreboard if we can't load the real one
             console.error("Failed to load scoreboard, using sample data")
             console.error(e)
+            /** Returns a sample scoreboard entry. */
             const test = (points) => {
               const timeline = [...Array(points)].map(idx => ({points: 1, captureId: 201 + idx, blockNumber: 9446648 + idx}))
               return {
@@ -175,11 +197,13 @@
           }
         }
 
+        /** Updates the datetime element with the current date and time. */
         const updateDateTime = () => {
           let datetimeEl = document.querySelector("div.datetime")
           datetimeEl.innerHTML = datetime()
         }
 
+        /** Loads the scores, then updates the table & starts the datetime ticker. */
         loadScores().then((scores) => {
           console.log("scoreboard", scores)
           let tbody = document.querySelector("tbody.leaderboard")
