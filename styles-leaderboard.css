@@ -37,7 +37,7 @@ body {
     background-repeat: repeat;
 
     font-family: monospace;
-    font-size: large;
+    font-size: 3.6mm;
 
     display: flex;
     flex-direction: column;
@@ -52,7 +52,7 @@ header {
     min-height: 28px;
     border: 1px solid #6e5677;
     padding: 0px 10px;
-    font-size: small;
+    font-size: 4mm;
     color: #e3bff2;
 
     display: flex;
