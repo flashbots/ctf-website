@@ -23,7 +23,6 @@
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
 }
 
 body {
@@ -36,7 +35,7 @@ body {
     background-repeat: repeat;
 
     font-family: monospace;
-    font-size: 4mm;
+    font-size: 0.9rem;
 
     display: flex;
     flex-direction: column;
@@ -47,17 +46,28 @@ body {
     color: white;
 }
 
+table.mobile {
+    scroll-behavior: smooth;
+    overflow-x: scroll;
+    padding-bottom: 80px;
+}
+
 header {
     min-height: 36px;
     border: 1px solid #6e5677;
     padding: 0px 10px;
     font-size: 4mm;
     color: #e3bff2;
+    background-color: #0D0D0D;
 
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+    z-index: 100;
+    position: fixed;
+    width: calc(100% - 40px);
+    background-image: url("stars.png");
 }
 
 header>div.logo,
@@ -102,20 +112,33 @@ footer {
     font-size: x-small;
     color: #717171;
     position: fixed;
-    bottom: 8px;
-    left: 12px;
+    bottom: 0;
+    left: 0;
+    padding-left: 12px;
+    padding-right: 12px;
+    padding-bottom: 8px;
+    background-color: #0D0D0D;
+    z-index: 60;
+    width: 100%;
+    min-height: 42px;
+    background-image: url("stars.png");
 
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-end;
 }
 
 div.content {
+    padding-top: 40px;
     display: flex;
     flex-direction: column;
     flex-grow: 1;
     align-items: center;
+}
+
+div.content.mobile {
+    align-items: flex-start;
 }
 
 .leaderboard {
@@ -124,6 +147,12 @@ div.content {
 
 table.leaderboard {
     border-spacing: 32px 0 !important;
+}
+
+table.leaderboard.mobile {
+    border-spacing: 0 0 !important;
+    padding-left: 0 !important;
+    padding-right: 8px !important;
 }
 
 /* additional downward nudge for first row */
@@ -277,8 +306,8 @@ div.registration>div.form>iframe {
 }
 
 .scoot-corner {
-    margin-bottom: 16px;
-    margin-right: 12px;
+    margin-bottom: 12px;
+    margin-right: 8px;
 }
 
 .fixed {

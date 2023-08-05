@@ -140,6 +140,17 @@
       
       /* ================= INIT ============================================= */
       function onPageLoad() {
+        // get visible screen width and modify layout accordingly
+        const screenWidth = window.innerWidth
+        const content = document.querySelector(".content")
+        const table = document.querySelector("table.leaderboard")
+
+        if (screenWidth < 836) {
+          // add the .mobile class to these elements, which will trigger mobile styles
+          table.classList.add("mobile")
+          content.classList.add("mobile")
+        }
+
         // load participants
         async function loadScores() {
           try {
