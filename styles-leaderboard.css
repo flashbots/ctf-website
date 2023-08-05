@@ -37,6 +37,7 @@ body {
     background-repeat: repeat;
 
     font-family: monospace;
+    font-size: large;
 
     display: flex;
     flex-direction: column;
