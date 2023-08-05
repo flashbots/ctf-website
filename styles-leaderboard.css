@@ -257,3 +257,22 @@ div.registration>div.form>iframe {
     height: 320px;
     border: none;
 }
+
+.button>a {
+    text-decoration: none;
+    color: #e3bff2;
+}
+
+.scoot-corner {
+    margin-bottom: 16px;
+    margin-right: 12px;
+}
+
+.fixed {
+    font-size-adjust: 16vh;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    max-width: 100%;
+    z-index: 100;
+}
