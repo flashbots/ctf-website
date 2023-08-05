@@ -33,7 +33,6 @@
         <thead>
           <th class="leaderboard">PLACE</th>
           <th class="leaderboard">ADDRESS</th>
-          <th class="leaderboard">PROGRESS</th>
           <th class="leaderboard">FLAGS CAPTURED</th>
           <th class="leaderboard">SCORE</th>
         </thead>
@@ -88,7 +87,6 @@
           <td class="leaderboard"><code>${placeWithSuffix(place)}</code></td>
           <td class="leaderboard"><code>${scoreCard.address}</code></td>
           <td class="leaderboard">${progressBar(scoreCard.flagsCaptured)}
-          <td class="leaderboard"><code>${scoreCard.flagsCaptured}</code></td>
           <td class="leaderboard"><code>${scoreCard.totalPoints}</code></td>
         </tr>`
       }
@@ -108,18 +106,23 @@
 
       function progressBar(challengesComplete) {
         const totalProgressPercent = (challengesComplete / TOTAL_CHALLENGES) * 100
-        console.log("totalProgress", totalProgressPercent)
+
+        // convert progress to percent, so we don't have to change this when the number of challenges changes
         const bandSize = 100 / TOTAL_CHALLENGES
-        console.log("bandSize", bandSize)
         const color = (idx) => {
           const thisPercent = (idx + 1) * bandSize
-          console.log("thisPercent", thisPercent)
-          const thisBandColor = thisPercent < 33 ? colorPalette.purple : thisPercent < 66 ? colorPalette.green : thisPercent <= 90 ? colorPalette.yellow : colorPalette.red
-          return totalProgressPercent >= thisPercent ? thisBandColor : "black"
+          const thisBandColor =
+            thisPercent < 33 ? colorPalette.purple :
+            thisPercent < 66 ? colorPalette.green :
+            thisPercent < 85 ? colorPalette.yellow :
+            colorPalette.red
+          return thisBandColor
         }
-        const progressNugget = (idx) => `<div class="progress-nugget" style="background-color: ${color(idx)};"></div>`
+
+        const progressNugget = (color) => `<div class="progress-nugget" style="background-color: ${color};"></div>`
+
         // set color up to progress point, then use no color for the remaining nuggets
-        const nuggets = [...Array(TOTAL_CHALLENGES).keys()].map(idx => idx < challengesComplete ? progressNugget(idx) : progressNugget("black")).reduce((a,b) => a+b)
+        const nuggets = [...Array(TOTAL_CHALLENGES).keys()].map(idx => idx < challengesComplete ? progressNugget(color(idx)) : progressNugget("#525252")).reduce((a,b) => a+b)
         return `<div class="progress-container">${nuggets}</div>`
       }
 
@@ -140,10 +143,19 @@
         // load participants
         async function loadScores() {
           const scoreboard = await fetch("https://ctf-data.flashbots.net/events.json")
-          let res = await scoreboard.json()
-          return {
-            ...res
-          }
+          return await scoreboard.json()
+          // const test = (points) => {
+          //   const timeline = [...Array(points)].map(idx => ({points: 1, captureId: 201 + idx, blockNumber: 9446648 + idx}))
+          //   return {
+          //     timeline,
+          //     totalPoints: timeline.map(w => w.points).reduce((a, b) => a + b)
+          //   }
+          // }
+          // return {
+          //   "0x1337": test(10),
+          //   "0x1338": test(9),
+          //   ...(await scoreboard.json())
+          // }
         }
 
         const updateDateTime = () => {

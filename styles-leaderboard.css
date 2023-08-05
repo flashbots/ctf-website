@@ -37,7 +37,7 @@ body {
     background-repeat: repeat;
 
     font-family: monospace;
-    font-size: 3.6mm;
+    font-size: 4mm;
 
     display: flex;
     flex-direction: column;
@@ -49,7 +49,7 @@ body {
 }
 
 header {
-    min-height: 28px;
+    min-height: 36px;
     border: 1px solid #6e5677;
     padding: 0px 10px;
     font-size: 4mm;
@@ -117,25 +117,26 @@ div.content {
 }
 
 .leaderboard {
-    padding-left: 13px;
-    padding-right: 13px;
+    padding: 13px;
+}
+
+table.leaderboard {
+    border-spacing: 32px 0 !important;
+}
+
+/* additional downward nudge for first row */
+.leaderboard>tr:first-child td {
+    padding-top: 28px;
+}
+
+th.leaderboard {
+    border: #cb89eb 1px solid;
+    box-shadow: #e3bff250 0 0 2px 2px;
 }
 
 th.leaderboard,
 td.leaderboard {
     text-align: left;
-}
-
-tbody.leaderboard tr:nth-child(odd) {
-    background-color: #fbfbfb13;
-}
-
-table.leaderboard,
-td.leaderboard,
-th.leaderboard {
-    /* border: 1px solid greenyellow !important; */
-    border: none;
-    border-collapse: none;
 }
 
 /* (A) RAINBOW COLOR SEQUENCE */
@@ -182,9 +183,10 @@ th.leaderboard {
 
 .progress-nugget {
     display: block;
-    width: 10px;
-    height: 4px;
+    width: 12px;
+    height: 8px;
     border-radius: 2px;
+    margin: 0 1px;
 }
 
 .progress-container {
