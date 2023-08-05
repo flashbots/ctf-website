@@ -144,35 +144,39 @@ th.leaderboard {
         color: #fc0303
     }
 
-    17% {
+    14.3% {
         color: #45f52a
     }
 
-    34% {
+    28.6% {
         color: #2a7bf5
     }
 
-    51% {
+    42.9% {
         color: #2af5e4
     }
 
-    68% {
+    57.2% {
         color: #c92af5
     }
 
-    85% {
+    71.5% {
         color: #f5dd2a
     }
 
+    85.8% {
+        color: #ffefef
+    }
+
     100% {
-        color: #66655d
+        color: #e92903
     }
 }
 
 /* (B) ATTACH RAINBOW EFFECT */
 .rainbow {
     animation-name: rainbow;
-    animation-duration: 9s;
+    animation-duration: 7s;
     animation-iteration-count: infinite;
 }
 
