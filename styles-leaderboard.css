@@ -27,7 +27,6 @@
 }
 
 body {
-    width: 100vw;
     height: 100vh;
     margin: 0;
     padding: 10px;
@@ -44,7 +43,7 @@ body {
     row-gap: 2rem;
     align-items: stretch;
     justify-content: space-between;
-    overflow: hidden;
+    overflow: visible;
     color: white;
 }
 
@@ -102,6 +101,9 @@ footer {
     height: 20px;
     font-size: x-small;
     color: #717171;
+    position: fixed;
+    bottom: 8px;
+    left: 12px;
 
     display: flex;
     flex-direction: row;
