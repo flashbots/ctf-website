@@ -142,19 +142,25 @@
       function onPageLoad() {
         // load participants
         async function loadScores() {
-          // const scoreboard = await fetch("https://ctf-data.flashbots.net/events.json")
-          // return await scoreboard.json()
-          const test = (points) => {
-            const timeline = [...Array(points)].map(idx => ({points: 1, captureId: 201 + idx, blockNumber: 9446648 + idx}))
-            return {
-              timeline,
-              totalPoints: timeline.map(w => w.points).reduce((a, b) => a + b)
+          try {
+            const scoreboard = await fetch("https://ctf-data.flashbots.net/events.json")
+            return await scoreboard.json()
+          } catch (e) {
+            console.error("Failed to load scoreboard, using sample data")
+            console.error(e)
+            const test = (points) => {
+              const timeline = [...Array(points)].map(idx => ({points: 1, captureId: 201 + idx, blockNumber: 9446648 + idx}))
+              return {
+                timeline,
+                totalPoints: timeline.map(w => w.points).reduce((a, b) => a + b)
+              }
             }
-          }
-          return {
-            "0x1337": test(10),
-            "0x1338": test(9),
-            // ...(await scoreboard.json())
+            return {
+              "0xtestdata00000000000000000000000000001337": test(10),
+              "0x00000000notreal0000000000000000000001338": test(9),
+              "0xf00000000000000thisisasimulati0000000001": test(5),
+              "0xf000000000000000000000000000000000000001": test(5),
+            }
           }
         }
 
