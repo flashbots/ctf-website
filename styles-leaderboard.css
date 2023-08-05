@@ -36,7 +36,7 @@ body {
     background-image: url("stars.png");
     background-repeat: repeat;
 
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-family: monospace;
 
     display: flex;
     flex-direction: column;
@@ -48,7 +48,7 @@ body {
 }
 
 header {
-    height: 40px;
+    min-height: 28px;
     border: 1px solid #6e5677;
     padding: 0px 10px;
     font-size: small;
@@ -63,6 +63,16 @@ header {
 header>div.logo,
 header>div.connected {
     white-space: nowrap;
+}
+
+div.logo>a {
+    text-decoration: none !important;
+}
+
+.disabled {
+    color: #fbfbfb69;
+    background-color: #0D0D0D !important;
+    cursor: default !important;
 }
 
 header>nav {
@@ -80,7 +90,8 @@ header>nav>div {
     padding: 0rem 0.4rem;
 }
 
-header>nav>div:hover {
+header>nav>div:hover,
+.selectedNav {
     background-color: #e3bff2;
     color: #0D0D0D;
     cursor: pointer;
@@ -104,21 +115,12 @@ div.content {
     align-items: center;
 }
 
-/* div.content > div.leaderboard > table > thead th {
-    border: 1px dashed #6e5677;
-    padding: 10px;
-  } */
-
 .leaderboard {
     padding-left: 13px;
     padding-right: 13px;
 }
 
-th.leaderboard {
-    text-align: left;
-    font-family: monospace;
-}
-
+th.leaderboard,
 td.leaderboard {
     text-align: left;
 }

@@ -1,28 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-  <title>Flashbots</title>
-  <link rel="stylesheet" href="styles-leaderboard.css">
-  <script>
-    document.addEventListener("DOMContentLoaded", onPageLoad);
-    const TOTAL_CHALLENGES = 9
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Flashbots</title>
+    <link rel="stylesheet" href="styles-leaderboard.css">
     
-    function onPageLoad() {
-      // document.querySelector("a.button").addEventListener("click",
-      //   event =>{
-      //     var parentContainer = event.target.parentElement;
-      //     var formContainer = document.querySelector("div.form");
+  </head>
 
-      //     parentContainer.style.display = "none";
-      //     formContainer.style.display = "block";
-      //   },
-      //   false
-      // );
-      console.log("document", document)
+  <body>
+    <header>
+      <div class="logo"><a style='color: inherit; font-style: inherit;' href="/">MEV-Share CTF</a></div>
 
+      <nav>
+        <!-- temporary hard-coded grey-out & selection styles serve as placeholders for unfinished work -->
+        <div class="disabled">CHALLENGES</div>
+        <div class="selectedNav">LEADERBOARD</div>
+        <div class="disabled">ACTIVITY</div>
+      </nav>
+
+      <div class="connected">· Connected</div>
+    </header>
+
+    <div class="content">
+      <table class="leaderboard">
+        <thead>
+          <th class="leaderboard">PLACE</th>
+          <th class="leaderboard">ADDRESS</th>
+          <th class="leaderboard">PROGRESS</th>
+          <th class="leaderboard">FLAGS CAPTURED</th>
+          <th class="leaderboard">SCORE</th>
+        </thead>
+        <tbody class="leaderboard">
+        </tbody>
+      </table>
+    </div>
+
+    <footer>
+      <div>Date</div>
+      <div>Time</div>
+    </footer>
+
+    <script>
+      const TOTAL_CHALLENGES = 9
+      document.addEventListener("DOMContentLoaded", onPageLoad)
+
+      /* ================= HELPERS ========================================== */
       const placeSuffix = (place) => {
         return place === 0 ? "th" :
         (place === 1) ? "st" :
@@ -42,52 +65,13 @@
         purple: "#b266ff"
       }
 
+      /* ================= COMPONENTS ======================================= */
       const simWins = (numWins) => {
         const simWin = {points: 2, captureId: 201, blockNumber: 9446648}
         const wins = [...Array(numWins).keys()].map(idx => simWin)
         return {
           timeline: wins,
           totalPoints: wins.map(w => w.points).reduce((a, b) => a + b)
-        }
-      }
-
-      // load participants
-      async function loadScores() {
-        const scoreboard = await fetch("https://ctf-data.flashbots.net/events.json")
-        let res = await scoreboard.json()
-        return {
-          /* test data */
-          "0x42069": simWins(9),
-          "0x4201337": simWins(8),
-          "0x4201338": simWins(8),
-          "0x4201339": simWins(8),
-          "0x42013310": simWins(8),
-          "0x42013311": simWins(8),
-          "0x42013312": simWins(8),
-          "0x42013313": simWins(8),
-          "0x42013314": simWins(8),
-          "0x42013315": simWins(8),
-          "0x42013316": simWins(8),
-          "0x42013317": simWins(8),
-          "0x42013318": simWins(8),
-          "0x42013319": simWins(8),
-          "0x42013320": simWins(8),
-          "0x42013321": simWins(8),
-          "0x42013322": simWins(8),
-          "0x42013323": simWins(8),
-          "0x42013324": simWins(8),
-          "0x42013325": simWins(8),
-          "0x42013326": simWins(8),
-          "0x42013327": simWins(8),
-          "0x42013328": simWins(8),
-          "0x42013329": simWins(8),
-          "0x42013330": simWins(8),
-          "0x42013331": simWins(8),
-          "0x42013332": simWins(8),
-          "0x42013333": simWins(8),
-          "0x42013334": simWins(8),
-          /* end test data */
-          ...res
         }
       }
 
@@ -131,48 +115,55 @@
         const nuggets = [...Array(TOTAL_CHALLENGES).keys()].map(idx => idx < challengesComplete ? progressNugget(idx) : progressNugget("black")).reduce((a,b) => a+b)
         return `<div class="progress-container">${nuggets}</div>`
       }
+      
+      /* ================= INIT ============================================= */
+      function onPageLoad() {
+        // load participants
+        async function loadScores() {
+          const scoreboard = await fetch("https://ctf-data.flashbots.net/events.json")
+          let res = await scoreboard.json()
+          return {
+            /* test data */
+            "0x42069": simWins(9),
+            "0x4201337": simWins(8),
+            "0x4201338": simWins(8),
+            "0x4201339": simWins(8),
+            "0x42013310": simWins(8),
+            "0x42013311": simWins(8),
+            "0x42013312": simWins(8),
+            "0x42013313": simWins(8),
+            "0x42013314": simWins(8),
+            "0x42013315": simWins(8),
+            "0x42013316": simWins(8),
+            "0x42013317": simWins(8),
+            "0x42013318": simWins(8),
+            "0x42013319": simWins(8),
+            "0x42013320": simWins(8),
+            "0x42013321": simWins(8),
+            "0x42013322": simWins(8),
+            "0x42013323": simWins(8),
+            "0x42013324": simWins(8),
+            "0x42013325": simWins(8),
+            "0x42013326": simWins(8),
+            "0x42013327": simWins(8),
+            "0x42013328": simWins(8),
+            "0x42013329": simWins(8),
+            "0x42013330": simWins(8),
+            "0x42013331": simWins(8),
+            "0x42013332": simWins(8),
+            "0x42013333": simWins(8),
+            "0x42013334": simWins(8),
+            /* end test data */
+            ...res
+          }
+        }
 
-      loadScores().then((scores) => {
-        console.log("scoreboard", scores)
-        let tbody = document.querySelector("tbody.leaderboard")
-        tbody.innerHTML = scoreboardRows(scores)
-      })
-
-      // map participant scores to progress meters
-      // ...
-    }
-  </script>
-</head>
-
-<body>
-  <header>
-    <div class="logo">MEV-Share CTF</div>
-
-    <nav>
-      <div>CHALLENGES</div>
-      <div>SCOREBOARD</div>
-      <div>ACTIVITY</div>
-    </nav>
-
-    <div class="connected">· Connected</div>
-  </header>
-
-  <div class="content">
-    <table class="leaderboard">
-      <thead>
-        <th class="leaderboard">PLACE</th>
-        <th class="leaderboard">ADDRESS</th>
-        <th class="leaderboard">PROGRESS</th>
-        <th class="leaderboard">FLAGS CAPTURED</th>
-        <th class="leaderboard">SCORE</th>
-      </thead>
-      <tbody class="leaderboard">
-      </tbody>
-    </table>
-  </div>
-
-  <footer>
-    <div>Date</div>
-    <div>Time</div>
-  </footer>
-</body>
+        loadScores().then((scores) => {
+          console.log("scoreboard", scores)
+          let tbody = document.querySelector("tbody.leaderboard")
+          tbody.innerHTML = scoreboardRows(scores)
+        })
+      }
+    </script>
+  </body>
+</html>
