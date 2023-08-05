@@ -183,10 +183,11 @@ td.leaderboard {
 
 .progress-nugget {
     display: block;
-    width: 12px;
+    width: 8px;
     height: 8px;
+    rotate: 45deg;
     border-radius: 2px;
-    margin: 0 1px;
+    margin: 0 4px;
 }
 
 .progress-container {

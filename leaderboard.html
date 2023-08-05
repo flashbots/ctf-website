@@ -142,20 +142,20 @@
       function onPageLoad() {
         // load participants
         async function loadScores() {
-          const scoreboard = await fetch("https://ctf-data.flashbots.net/events.json")
-          return await scoreboard.json()
-          // const test = (points) => {
-          //   const timeline = [...Array(points)].map(idx => ({points: 1, captureId: 201 + idx, blockNumber: 9446648 + idx}))
-          //   return {
-          //     timeline,
-          //     totalPoints: timeline.map(w => w.points).reduce((a, b) => a + b)
-          //   }
-          // }
-          // return {
-          //   "0x1337": test(10),
-          //   "0x1338": test(9),
-          //   ...(await scoreboard.json())
-          // }
+          // const scoreboard = await fetch("https://ctf-data.flashbots.net/events.json")
+          // return await scoreboard.json()
+          const test = (points) => {
+            const timeline = [...Array(points)].map(idx => ({points: 1, captureId: 201 + idx, blockNumber: 9446648 + idx}))
+            return {
+              timeline,
+              totalPoints: timeline.map(w => w.points).reduce((a, b) => a + b)
+            }
+          }
+          return {
+            "0x1337": test(10),
+            "0x1338": test(9),
+            // ...(await scoreboard.json())
+          }
         }
 
         const updateDateTime = () => {
