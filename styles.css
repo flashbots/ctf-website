@@ -101,18 +101,64 @@ div.content {
   flex-grow: 1;
   align-items: center;
 }
-
-div.content > div.leaderboard {
-  width: 30rem;
-  display: grid;
-  grid-template-areas: "header header header header" "content content content content";
-  grid-template-columns: 1fr 1fr 2fr 1fr;
-}
 /* div.content > div.leaderboard > table > thead th {
   border: 1px dashed #6e5677;
   padding: 10px;
 } */
 
+.leaderboard {
+  padding-left: 13px;
+  padding-right: 13px;
+}
+
+th.leaderboard {
+  text-align: left;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+td.leaderboard {
+  text-align: left;
+}
+
+tbody.leaderboard tr:nth-child(odd) {
+  background-color: #fbfbfb13;
+}
+
+table.leaderboard, td.leaderboard, th.leaderboard {
+  /* border: 1px solid greenyellow !important; */
+  border: none;
+  border-collapse: none;
+}
+
+/* (A) RAINBOW COLOR SEQUENCE */
+@keyframes rainbow {
+  0% { color: #fc0303 }
+  17% { color: #45f52a }
+  34% { color: #2a7bf5 }
+  51% { color: #2af5e4 }
+  68% { color: #c92af5 }
+  85% { color: #f5dd2a }
+  100% { color: #66655d }
+}
+
+/* (B) ATTACH RAINBOW EFFECT */
+.rainbow {
+  animation-name: rainbow;
+  animation-duration: 9s;
+  animation-iteration-count: infinite;
+}
+
+.progress-nugget {
+  display: block;
+  width: 10px;
+  height: 4px;
+  border-radius: 2px;
+}
+
+.progress-container {
+  display: flex;
+  flex-direction: row;
+}
 
 h2 {
   margin: 0 0 1rem;
