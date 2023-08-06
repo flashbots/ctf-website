@@ -2,10 +2,11 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>Flashbots</title>
+    <link rel="icon" type="image/svg+xml"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='14' viewBox='0 0 12 14'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M7.07289 0L7.91879 0.483459L6.631 4.76674H11.5178L4.19989 12.679L3.35398 12.1956L4.72089 7.64736H0L7.07289 0ZM5.20514 6.03608L6.33835 2.26697L2.28701 6.64736H5.02136L5.20514 6.03608ZM4.93407 10.4124L9.23077 5.76674H6.33078L6.16271 6.3243L4.93407 10.4124Z' fill='%23000000' /%3E%3C/svg%3E%0A" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <link rel="stylesheet" href="styles-leaderboard.css">
-    
   </head>
 
   <body>
@@ -143,7 +144,6 @@
       function progressBar(timeline) {
         // assign color based on difficulty of challenge (1xx, 2xx, 3xx, 4xx)
         const color = (captureId) => {
-          console.log("captureId", captureId)
           const thisBandColor =
             captureId < 200 ? colorPalette.purple :
             captureId < 300 ? colorPalette.green :
