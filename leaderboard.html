@@ -127,7 +127,7 @@
         return `<tr class="leaderboard-row ${specialClass}">
           <td class="leaderboard"><code>${placeWithSuffix(place)}</code></td>
           <td class="leaderboard"><code>${scoreCard.address}</code></td>
-          <td class="leaderboard">${progressBar(scoreCard.flagsCaptured)}
+          <td class="leaderboard">${progressBar(scoreCard.timeline)}
           <td class="leaderboard"><code>${scoreCard.totalPoints}</code></td>
         </tr>`
       }
@@ -140,17 +140,14 @@
       }
 
       /** Returns the raw HTML which renders the number of flags captured as cute lil gems. */
-      function progressBar(challengesComplete) {
-        const totalProgressPercent = (challengesComplete / TOTAL_CHALLENGES) * 100
-
-        // convert progress to percent, so we don't have to change this when the number of challenges changes
-        const bandSize = 100 / TOTAL_CHALLENGES
-        const color = (idx) => {
-          const thisPercent = (idx + 1) * bandSize
+      function progressBar(timeline) {
+        // assign color based on difficulty of challenge (1xx, 2xx, 3xx, 4xx)
+        const color = (captureId) => {
+          console.log("captureId", captureId)
           const thisBandColor =
-            thisPercent < 33 ? colorPalette.purple :
-            thisPercent < 66 ? colorPalette.green :
-            thisPercent < 85 ? colorPalette.yellow :
+            captureId < 200 ? colorPalette.purple :
+            captureId < 300 ? colorPalette.green :
+            captureId < 400 ? colorPalette.yellow :
             colorPalette.red
           return thisBandColor
         }
@@ -158,8 +155,10 @@
         // each "bar" in the progress bar is just a div with some CSS; these are called nuggets
         const progressNugget = (color) => `<div class="progress-nugget" style="background-color: ${color};"></div>`
 
+        // sort timeline by blockNumber
+        const sortedTimeline = timeline.sort((a, b) => a.blockNumber - b.blockNumber)
         // set color up to progress point, then use no color for the remaining nuggets
-        const nuggets = [...Array(TOTAL_CHALLENGES).keys()].map(idx => idx < challengesComplete ? progressNugget(color(idx)) : progressNugget("#525252")).reduce((a,b) => a+b)
+        const nuggets = [...Array(TOTAL_CHALLENGES).keys()].map(idx => idx < timeline.length ? progressNugget(color(sortedTimeline[idx].captureId)) : progressNugget("#525252")).reduce((a,b) => a+b)
         return `<div class="progress-container">${nuggets}</div>`
       }
 
